@@ -13,6 +13,7 @@ import com.example.guestbook.dto.PageRequestDTO;
 import com.example.guestbook.dto.PageResultDTO;
 import com.example.guestbook.repository.GuestbookRepository;
 
+import java.util.Optional;
 import java.util.function.Function;
 
 @Service
@@ -33,7 +34,11 @@ public class GuestbookServiceImpl implements GuestbookService {
         return entity.getGno();
 
     }
-
+    @Override
+    public GuestbookDTO read(Long gno){
+        Optional<Guestbook> result = repository.findById(gno);
+        return result.isPresent()? entityToDto(result.get()): null;
+    }
     @Override
     public PageResultDTO<GuestbookDTO, Guestbook> getList(PageRequestDTO requestDTO) {
         Pageable pageable = requestDTO.getPageable(Sort.by("gno").descending());

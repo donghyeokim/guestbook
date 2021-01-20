@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.ui.Model;
@@ -38,6 +39,12 @@ public class GuestbookController {
         log.info("register get...");
     }
 
+    @GetMapping("/read")
+    public void read(long gno, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, Model model){
+        log.info("gno: "+gno);
+        GuestbookDTO dto=service.read(gno);
+        model.addAttribute("dto", dto);
+    }
     @PostMapping("/register")
     public String registerPost(GuestbookDTO dto, RedirectAttributes redirectAttributes){
         log.info("dto..."+dto);

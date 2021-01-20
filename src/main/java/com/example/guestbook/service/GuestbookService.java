@@ -8,7 +8,7 @@ import com.example.guestbook.repository.GuestbookRepository;
 
 public interface GuestbookService {
     Long register(GuestbookDTO dto);
-
+    GuestbookDTO read(Long gno);
     PageResultDTO<GuestbookDTO, Guestbook> getList(PageRequestDTO requestDTO);
 
     default Guestbook dtoToEntity(GuestbookDTO dto){
